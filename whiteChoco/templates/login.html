@@ -1,0 +1,11 @@
+<form action="{% url 'whiteChoco:login' %}" method="POST">
+    {%csrf_token%}
+    <p>
+        <input type="text" name="username" placeholder="login id">
+    </p>
+    <p>
+        <input type="password" name="password" placeholder="password">
+    </p>
+    <button type="submit">로그인</button>
+</form>
+<a href="{% url 'index' %}">Home</a>

@@ -1,0 +1,16 @@
+{% if user.is_authenticated %}
+    <p>로그인 상태</p>
+    <p>username : {{user.username}}</p>
+    <p>nickname : {{user.profile.nickname}}</p>
+    <p>
+        <a href="{% url 'whiteChoco:logout' %}">로그아웃</a>
+    </p>
+{% else %}
+    <p>미로그인 상태</p>
+    <p>
+        <a href="{% url 'whiteChoco:login' %}">로그인</a>
+    </p>
+    <p>
+        <a href="{% url 'whiteChoco:signup' %}">회원가입</a>
+    </p>
+{% endif %}
