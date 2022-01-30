@@ -2,7 +2,6 @@
 
     {% if messages %}
         {% for message in messages %}
-            {{ message.tags }}
             {{ message.message }}
         {% endfor %}
     {% endif %}
@@ -12,12 +11,6 @@
     </p>
 {% else %}
     <p>chocolate is sweet !!</p>
-    <p>
-        <a href="{% url 'whiteChoco:signup' %}">회원가입</a>
-    </p>
-    <p>
-        <a href="{% url 'whiteChoco:login' %}">로그인</a>
-    </p>
+    <a href="{% url 'whiteChoco:login' %}">로그인</a>
+    <a href="{% url 'whiteChoco:signup' %}">회원가입</a>
 {% endif %}
-
-

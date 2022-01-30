@@ -1,17 +1,17 @@
 <form action="{% url 'whiteChoco:signup'%}" method="POST" >
     {%csrf_token%}
     <p>
-        <input type="email" name="username" placeholder="login email">
+        <input type="email" name="username" placeholder="이메일">
     </p>
     <p>
-        <input type="text" name="nickname" placeholder="nick name">
+        <input type="text" name="nickname" placeholder="닉네임">
     </p>
     <p>
-        <input type="password" name="password1" placeholder="password1">
+        <input type="password" name="password1" placeholder="비밀번호">
     </p>
     <p>
-        <input type="password" name="password2" placeholder="password2">
+        <input type="password" name="password2" placeholder="비밀번호 확인">
     </p>
     <button type="submit">회원가입</button>
 </form>
-<a href="{% url 'index' %}">Home</a>
+<a href="{% url 'index' %}">첫 화면</a>

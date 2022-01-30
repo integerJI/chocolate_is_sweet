@@ -12,8 +12,9 @@ def post(request):
     try :
         profileModel = Profile.objects.get(nickname=request.GET['to_user'])
         letter = Letter()
-        letter.to_user = profileModel.user
-        letter.from_user = request.user.get_username()
+        letter.user_check = profileModel.user
+        letter.to_user = profileModel.nickname
+        letter.from_user = request.user.profile
         letter.letter_text = request.GET['letter_text']
         letter.send_date = timezone.datetime.now()
         letter.save()

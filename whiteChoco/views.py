@@ -1,12 +1,10 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LogoutView
 from django.shortcuts import render, redirect
-from django.contrib import auth
+from django.contrib.auth import login
+from django.contrib import auth, messages
 from django.views import View
 from whiteChoco.models import Profile
-from django.contrib.auth.views import LoginView, LogoutView
-from django.conf import settings
-from django.contrib import messages
-from django.contrib.auth import login
 from darkChoco.models import Letter
 
 class CreateUserView(View):
@@ -37,19 +35,18 @@ class LoginUserView(View):
         return redirect('whiteChoco:userpage', nickname=profileModel.nickname)
 
 class LogoutViews(LogoutView):
-    next_page = settings.LOGOUT_REDIRECT_URL
+    next_page = 'index'
 logout = LogoutViews.as_view()
 
 def userpage(request, nickname):
     try :
         profileModel = Profile.objects.get(nickname=nickname)
-        letters = Letter.objects.filter(to_user=request.user).order_by('-send_date')
+        letters = Letter.objects.filter(to_user=request.user.profile).order_by('-send_date')
         context = {
-            # 'username' : userModel.username,
             'nickname' : profileModel.nickname,
             'letters' : letters,
         }
         return render(request, 'userpage.html', context=context)
     except :
         messages.info(request, '사용자 없음!')
-        return render(request, 'err-404.html')
+        return redirect('index')
