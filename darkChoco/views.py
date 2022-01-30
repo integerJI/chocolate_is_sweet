@@ -13,7 +13,6 @@ def index(request):
         }
         return render(request, 'index.html', context)
     except :  # 에러 종류
-
         return render(request, 'index.html')
 
 def post(request):
