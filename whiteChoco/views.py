@@ -7,6 +7,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
+from darkChoco.models import Letter
 
 class CreateUserView(View):
     def get(self, request):
@@ -25,18 +26,15 @@ class CreateUserView(View):
             auth.login(request,user)
             return redirect('whiteChoco:userpage', nickname=nickname)
 
-# class Loginviews(LoginView):
-#     template_name = settings.LOGIN_URL
-# login = Loginviews.as_view()
+class LoginUserView(View):
+    def get(self, request):
+        return render(request, 'login.html')
 
-def user_login(request):
-    if request.method == "POST":
+    def post(self, request):
         user = User.objects.get(username=request.POST["username"])
         profileModel = Profile.objects.get(user=user)
         login(request, user)
         return redirect('whiteChoco:userpage', nickname=profileModel.nickname)
-    else :
-        return render(request, 'login.html')
 
 class LogoutViews(LogoutView):
     next_page = settings.LOGOUT_REDIRECT_URL
@@ -45,9 +43,11 @@ logout = LogoutViews.as_view()
 def userpage(request, nickname):
     try :
         profileModel = Profile.objects.get(nickname=nickname)
+        letters = Letter.objects.filter(to_user=request.user).order_by('-send_date')
         context = {
             # 'username' : userModel.username,
-            'nickname' : profileModel.nickname
+            'nickname' : profileModel.nickname,
+            'letters' : letters,
         }
         return render(request, 'userpage.html', context=context)
     except :
