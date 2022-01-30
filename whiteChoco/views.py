@@ -41,7 +41,7 @@ logout = LogoutViews.as_view()
 def userpage(request, nickname):
     try :
         profileModel = Profile.objects.get(nickname=nickname)
-        letters = Letter.objects.filter(to_user=request.user.profile).order_by('-send_date')
+        letters = Letter.objects.filter(to_user=nickname).order_by('-send_date')
         context = {
             'nickname' : profileModel.nickname,
             'letters' : letters,
