@@ -1,11 +1,4 @@
 {% if user.is_authenticated %}
-    <p>로그인 상태</p>
-    <p>username : {{user.username}}</p>
-    <p>nickname : {{user.profile.nickname}}</p>
-    <p>
-        <a href="{% url 'whiteChoco:logout' %}">로그아웃</a>
-    </p>
-
 
     {% if messages %}
         {% for message in messages %}
@@ -14,24 +7,9 @@
         {% endfor %}
     {% endif %}
 
-    <br>
-    <br>
-    <form action="{% url 'darkChoco:post' %}">
-        <input type="text" name="to_user"/>
-        <textarea cols="40" rows="10" name="letter_text"></textarea>
-        <br><br>
-        <input type="submit" value="전달!" />
-    </form>
-
-    {% for letter in letters.all %}
-        <h1>{{ letter.to_user }}에게</h1>
-        <p>{{ letter.letter_text }} - 내용</p>
-        <p>{{ letter.from_user }}가</p>
-    {% endfor %}
-
-    
-
-
+    <p>
+        <a href="{% url 'whiteChoco:userpage' nickname=user.profile.nickname %}">돌아가기</a>
+    </p>
 {% else %}
     <p>chocolate is sweet !!</p>
     <p>

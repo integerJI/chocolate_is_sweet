@@ -1,15 +1,15 @@
-<p>로그인 상태</p>
-<p>username : {{user.username}}</p>
-<p>nickname : {{user.profile.nickname}}</p>
-<p>
-    <a href="{% url 'whiteChoco:logout' %}">로그아웃</a>
-</p>
-
-
-<br>
-<br>
+<hr>
+<p>로그인한 사용자 정보</p>
+<p>ID : {{user.username}}</p>
+<p>닉네임 : {{user.profile.nickname}}</p>
+<p><a href="{% url 'whiteChoco:logout' %}">로그아웃</a></p>
+<hr>
+<p>현재 페이지 주인</p>
+{{nickname}}
+<hr>
 <form action="{% url 'darkChoco:post' %}">
-    <input type="text" name="to_user"/>
+    <input type="hidden" name="to_user" value="{{nickname}}" />
+    <br>
     <textarea cols="40" rows="10" name="letter_text"></textarea>
     <br><br>
     <input type="submit" value="전달!" />
