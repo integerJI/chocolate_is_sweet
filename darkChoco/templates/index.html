@@ -1,11 +1,10 @@
+{% if messages %}
+    {% for message in messages %}
+        {{ message.message }}
+    {% endfor %}
+{% endif %}
+
 {% if user.is_authenticated %}
-
-    {% if messages %}
-        {% for message in messages %}
-            {{ message.message }}
-        {% endfor %}
-    {% endif %}
-
     <p>
         <a href="{% url 'whiteChoco:userpage' nickname=user.profile.nickname %}">돌아가기</a>
     </p>
