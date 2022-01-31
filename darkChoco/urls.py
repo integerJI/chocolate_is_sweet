@@ -5,4 +5,5 @@ app_name = 'darkChoco'
 
 urlpatterns = [
     path('post/', views.post, name='post'),
+    path('jsPost/', views.JsCreatePostView.as_view(), name='jsPost'),
 ]

@@ -7,7 +7,7 @@
 <p>현재 페이지 주인</p>
 {{nickname}}
 <hr>
-<form action="{% url 'darkChoco:post' %}">
+<form action="{% url 'darkChoco:post' %}" method="POST">
     <input type="hidden" name="to_user" value="{{nickname}}" />
     <br>
     <textarea cols="40" rows="10" name="letter_text"></textarea>
