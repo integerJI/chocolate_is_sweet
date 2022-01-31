@@ -29,17 +29,23 @@ class LoginUserView(View):
         return render(request, 'login.html')
 
     def post(self, request):
-        user = User.objects.get(username=request.POST["username"])
-        profileModel = Profile.objects.get(user=user)
-        login(request, user)
-        return redirect('whiteChoco:userpage', nickname=profileModel.nickname)
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = auth.authenticate(request, username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            profileModel = Profile.objects.get(user=user)
+            return redirect('whiteChoco:userpage', nickname=profileModel.nickname)
+        else:
+            messages.info(request, '아이디, 패스워드를 확인하세요')
+            return redirect('index')
 
 class LogoutViews(LogoutView):
     next_page = 'index'
 logout = LogoutViews.as_view()
 
 def userpage(request, nickname):
-    try :
+    try:
         profileModel = Profile.objects.get(nickname=nickname)
         letters = Letter.objects.filter(to_user=nickname).order_by('-send_date')
         context = {
@@ -47,6 +53,6 @@ def userpage(request, nickname):
             'letters' : letters,
         }
         return render(request, 'userpage.html', context=context)
-    except :
+    except:
         messages.info(request, '사용자 없음!')
         return redirect('index')
