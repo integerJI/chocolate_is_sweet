@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'darkChoco',
     'whiteChoco',
+    'corsheaders', # React와 연결 하기 위한 CORS 추가 2022.02.01 jsji
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+# React와 연결 하기 위한 CORS 추가 2022.02.01 jsji
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://127.0.0.1:8000",
 ]
 
 ROOT_URLCONF = 'sweetProject.urls'
