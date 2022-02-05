@@ -72,7 +72,7 @@ class JsCreateUserView(View):
 
         if User.objects.filter(username=data['username']): 
             response["result"] = "false"
-            response["status_code"] = "201"
+            response["error_code"] = "201"
             response["message"] = "이미 사용중인 아이디 입니다."
             response["return_url"] = "/"
             return JsonResponse(response, json_dumps_params = {'ensure_ascii': False})
@@ -81,7 +81,7 @@ class JsCreateUserView(View):
                 try:
                     if Profile.objects.filter(nickname=data['nickname']):
                         response["result"] = "false"
-                        response["status_code"] = "202"
+                        response["error_code"] = "202"
                         response["message"] = "이미 사용중인 닉네임 입니다."
                         response["return_url"] = "/"
                         return JsonResponse(response, json_dumps_params = {'ensure_ascii': False})
@@ -98,12 +98,12 @@ class JsCreateUserView(View):
                         return redirect('whiteChoco:userpage', nickname=nickname)
                 except KeyError:
                     response["result"] = "false"
-                    response["status_code"] = "203"
+                    response["error_code"] = "203"
                     response["message"] = "회원가입에 실패하였습니다."
                     response["return_url"] = "/"
             else :
                 response["result"] = "false"
-                response["status_code"] = "204"
+                response["error_code"] = "204"
                 response["message"] = "비밀번호가 서로 다릅니다."
                 response["return_url"] = "/"
             return JsonResponse(response, json_dumps_params = {'ensure_ascii': False})
